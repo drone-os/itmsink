@@ -11,6 +11,7 @@ use std::{
 use structopt::StructOpt;
 
 /// ITM protocol parser.
+#[allow(intra_doc_link_resolution_failure)]
 #[derive(Debug, StructOpt)]
 pub struct Cli {
     /// Set the raw ITM input to INPUT

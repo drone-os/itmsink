@@ -47,8 +47,8 @@ impl Stream {
     /// Writes to the output stream.
     pub fn write(&mut self, data: &[u8]) -> Result<(), Error> {
         match self {
-            Stream::Stdout(stdout) => write_stream(stdout, data),
-            Stream::File(file) => write_stream(file, data),
+            Self::Stdout(stdout) => write_stream(stdout, data),
+            Self::File(file) => write_stream(file, data),
         }
     }
 }

@@ -1,6 +1,6 @@
-# itmsink
+[![Crates.io](https://img.shields.io/crates/v/itmsink.svg)](https://crates.io/crates/itmsink)
 
-## [Documentation](https://docs.rs/itmsink)
+# itmsink
 
 ITM protocol parser.
 
