@@ -1,12 +1,17 @@
+# Install dependencies
+deps:
+	rustup component add clippy
+	rustup component add rustfmt
+	rustup component add rls rust-analysis rust-src
+	type cargo-readme >/dev/null || cargo +stable install cargo-readme
+
+# Reformat the source code
+fmt:
+	cargo fmt
+
 # Check for mistakes
 lint:
-	rustup component add clippy
 	cargo clippy
-
-# Reformat the code
-fmt:
-	rustup component add rustfmt
-	cargo fmt
 
 # Generate the docs
 doc:
@@ -16,13 +21,21 @@ doc:
 doc-open: doc
 	cargo doc --open
 
+# Run the tests
+test:
+	cargo test
+
+# Install the binaries
+install:
+	cargo install --path . --debug --force
+
 # Update README.md
 readme:
 	cargo readme -o README.md
 
-# Run the tests
-test:
-	cargo test
+# Bump crate versions
+version-bump version:
+	sed -i '/\[.*\]/h;/version = ".*"/{x;s/\[package\]/version = "{{version}}"/;t;x}' Cargo.toml
 
 # Publish to crates.io
 publish:

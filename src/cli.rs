@@ -1,7 +1,6 @@
 //! Command Line Interface.
 
 use crate::PORTS_COUNT;
-use clap_verbosity_flag::Verbosity;
 use failure::{bail, Error};
 use std::{
     ffi::{OsStr, OsString},
@@ -14,19 +13,19 @@ use structopt::StructOpt;
 #[allow(intra_doc_link_resolution_failure)]
 #[derive(Debug, StructOpt)]
 pub struct Cli {
-    /// Set the raw ITM input to INPUT
+    /// Pass many times for more log output
+    #[structopt(long = "verbosity", short = "v", parse(from_occurrences))]
+    pub verbosity: u64,
+    /// Read raw data from INPUT instead of STDIN
     #[structopt(short = "i", long = "input", name = "INPUT", parse(from_os_str))]
     pub input: Option<PathBuf>,
-    #[allow(missing_docs)]
-    #[structopt(flatten)]
-    pub verbosity: Verbosity,
     /// Output specification in form of "ports[:path]"; "ports" is a
     /// comma-separated list of stimulus port numbers, or "all" to select all
     /// ports; "path" is a file path for the output, or STDOUT if omitted
     #[structopt(
         name = "OUTPUT",
         default_value = "all",
-        parse(try_from_os_str = "parse_output")
+        parse(try_from_os_str = parse_output)
     )]
     pub outputs: Vec<Output>,
 }

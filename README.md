@@ -1,8 +1,30 @@
-[![Crates.io](https://img.shields.io/crates/v/itmsink.svg)](https://crates.io/crates/itmsink)
+[![crates.io](https://img.shields.io/crates/v/itmsink.svg)](https://crates.io/crates/itmsink)
+![maintenance](https://img.shields.io/badge/maintenance-actively--developed-brightgreen.svg)
 
 # itmsink
 
 ITM protocol parser.
+
+## Usage
+
+The program requires Nightly channel of Rust. Make sure you have it
+installed:
+
+```shell
+$ rustup toolchain install nightly
+```
+
+Install the latest version from crates.io:
+
+```shell
+$ cargo +nightly install itmsink
+```
+
+Check the built-in help:
+
+```shell
+$ itmsink --help
+```
 
 ## License
 

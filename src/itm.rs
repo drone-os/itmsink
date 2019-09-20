@@ -69,7 +69,7 @@ fn outputs_map<'cli>(outputs: &'cli [Output<'cli>]) -> [Streams<'cli>; PORTS_COU
     map
 }
 
-#[allow(clippy::cognitive_complexity)]
+#[allow(clippy::too_many_lines, clippy::cognitive_complexity)]
 fn parser<'cli>(
     outputs: &'cli [Output<'cli>],
     pipe: Rc<Cell<u8>>,

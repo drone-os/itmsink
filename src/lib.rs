@@ -1,4 +1,25 @@
 //! ITM protocol parser.
+//!
+//! # Usage
+//!
+//! The program requires Nightly channel of Rust. Make sure you have it
+//! installed:
+//!
+//! ```shell
+//! $ rustup toolchain install nightly
+//! ```
+//!
+//! Install the latest version from crates.io:
+//!
+//! ```shell
+//! $ cargo +nightly install itmsink
+//! ```
+//!
+//! Check the built-in help:
+//!
+//! ```shell
+//! $ itmsink --help
+//! ```
 
 #![feature(exhaustive_patterns)]
 #![feature(generator_trait)]
