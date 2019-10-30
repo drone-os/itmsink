@@ -1,7 +1,7 @@
 //! ITM output.
 
 use crate::cli;
-use failure::Error;
+use anyhow::Result;
 use std::{
     cell::RefCell,
     fs::{File, OpenOptions},
@@ -45,7 +45,7 @@ impl<'cli> Output<'cli> {
 
 impl Stream {
     /// Writes to the output stream.
-    pub fn write(&mut self, data: &[u8]) -> Result<(), Error> {
+    pub fn write(&mut self, data: &[u8]) -> Result<()> {
         match self {
             Self::Stdout(stdout) => write_stream(stdout, data),
             Self::File(file) => write_stream(file, data),
@@ -53,7 +53,7 @@ impl Stream {
     }
 }
 
-fn write_stream<T: Write>(stream: &mut T, data: &[u8]) -> Result<(), Error> {
+fn write_stream<T: Write>(stream: &mut T, data: &[u8]) -> Result<()> {
     stream.write_all(data)?;
     stream.flush()?;
     Ok(())

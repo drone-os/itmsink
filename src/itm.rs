@@ -4,7 +4,7 @@ use crate::{
     output::{Output, Stream},
     PORTS_COUNT,
 };
-use failure::Error;
+use anyhow::Result;
 use log::{debug, warn};
 use smallvec::SmallVec;
 use std::{
@@ -17,7 +17,7 @@ use std::{
 /// ITM protocol parser.
 pub struct Parser<'cli> {
     pipe: Rc<Cell<u8>>,
-    gen: Pin<Box<dyn Generator<Yield = (), Return = Result<!, Error>> + 'cli>>,
+    gen: Pin<Box<dyn Generator<Yield = (), Return = Result<!>> + 'cli>>,
 }
 
 enum Timestamp {
@@ -30,7 +30,7 @@ type Streams<'cli> = SmallVec<[&'cli RefCell<Stream>; 2]>;
 
 impl<'cli> Parser<'cli> {
     /// Creates a new [`Parser`].
-    pub fn new(outputs: &'cli [Output<'cli>]) -> Result<Self, Error> {
+    pub fn new(outputs: &'cli [Output<'cli>]) -> Result<Self> {
         let pipe = Rc::new(Cell::new(0));
         let gen = Box::pin(parser(outputs, Rc::clone(&pipe)));
         let mut parser = Self { pipe, gen };
@@ -39,13 +39,13 @@ impl<'cli> Parser<'cli> {
     }
 
     /// Feeds a byte to the parser.
-    pub fn pump(&mut self, byte: u8) -> Result<(), Error> {
+    pub fn pump(&mut self, byte: u8) -> Result<()> {
         debug!("BYTE 0b{0:08b} 0x{0:02X} {1:?}", byte, char::from(byte));
         self.pipe.set(byte);
         self.resume()
     }
 
-    fn resume(&mut self) -> Result<(), Error> {
+    fn resume(&mut self) -> Result<()> {
         match self.gen.as_mut().resume() {
             GeneratorState::Yielded(()) => Ok(()),
             GeneratorState::Complete(Err(err)) => Err(err),
@@ -73,7 +73,7 @@ fn outputs_map<'cli>(outputs: &'cli [Output<'cli>]) -> [Streams<'cli>; PORTS_COU
 fn parser<'cli>(
     outputs: &'cli [Output<'cli>],
     pipe: Rc<Cell<u8>>,
-) -> impl Generator<Yield = (), Return = Result<!, Error>> + 'cli {
+) -> impl Generator<Yield = (), Return = Result<!>> + 'cli {
     let outputs = outputs_map(outputs);
     let mut bytes = SmallVec::<[u8; 16]>::new();
     macro_rules! next_byte {
@@ -212,12 +212,7 @@ fn timestamp_packet(timestamp: &Timestamp, payload: &[u8]) {
     }
 }
 
-fn source_packet(
-    software: bool,
-    port: u8,
-    payload: &[u8],
-    outputs: &[Streams<'_>],
-) -> Result<(), Error> {
+fn source_packet(software: bool, port: u8, payload: &[u8], outputs: &[Streams<'_>]) -> Result<()> {
     debug!(
         "{} packet {:?} {:?}",
         if software { "Software" } else { "Hardware" },

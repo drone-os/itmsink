@@ -1,13 +1,13 @@
 #![deny(elided_lifetimes_in_paths)]
 #![warn(clippy::pedantic)]
 
+use anyhow::Result;
 use env_logger::Builder as LoggerBuilder;
-use exitfailure::ExitFailure;
 use itmsink::cli::Cli;
 use log::Level;
 use structopt::StructOpt;
 
-fn main() -> Result<(), ExitFailure> {
+fn main() -> Result<()> {
     let args = Cli::from_args();
     let log_level = match args.verbosity {
         0 => Level::Error,

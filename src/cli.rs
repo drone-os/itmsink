@@ -1,7 +1,7 @@
 //! Command Line Interface.
 
 use crate::PORTS_COUNT;
-use failure::{bail, Error};
+use anyhow::{bail, Error};
 use std::{
     ffi::{OsStr, OsString},
     os::unix::ffi::OsStrExt,

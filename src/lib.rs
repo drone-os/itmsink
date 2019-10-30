@@ -36,8 +36,8 @@ pub mod output;
 /// Stimulus ports count.
 pub const PORTS_COUNT: usize = 32;
 
+use anyhow::Result;
 use cli::Cli;
-use failure::Error;
 use output::Output;
 use std::{
     fs::File,
@@ -46,7 +46,7 @@ use std::{
 
 impl Cli {
     /// Runs the program.
-    pub fn run(&self) -> Result<(), Error> {
+    pub fn run(&self) -> Result<()> {
         let outputs = Output::open_all(&self.outputs)?;
         let mut parser = itm::Parser::new(&outputs)?;
         if let Some(path) = &self.input {
