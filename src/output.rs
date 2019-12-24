@@ -34,10 +34,7 @@ impl<'cli> Output<'cli> {
                     Some(path) => OpenOptions::new().write(true).open(path).map(Stream::File),
                     None => Ok(Stream::Stdout(io::stdout())),
                 }
-                .map(|output| Self {
-                    ports,
-                    output: RefCell::new(output),
-                })
+                .map(|output| Self { ports, output: RefCell::new(output) })
             })
             .collect()
     }

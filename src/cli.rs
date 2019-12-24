@@ -43,10 +43,7 @@ pub struct Output {
 fn parse_port(src: &str) -> Result<u8, Error> {
     let port = src.parse()?;
     if port as usize >= PORTS_COUNT {
-        bail!(
-            "Stimulus port number can't be greater than {}",
-            PORTS_COUNT - 1
-        );
+        bail!("Stimulus port number can't be greater than {}", PORTS_COUNT - 1);
     }
     Ok(port)
 }

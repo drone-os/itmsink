@@ -192,10 +192,7 @@ fn synchronization_packet(zeros: u32) {
 }
 
 fn extension_packet(sh: u8, ex: u8, payload: &[u8]) {
-    debug!(
-        "Extension packet sh={}, ex={}, payload={:?}",
-        sh, ex, payload
-    );
+    debug!("Extension packet sh={}, ex={}, payload={:?}", sh, ex, payload);
 }
 
 fn timestamp_packet(timestamp: &Timestamp, payload: &[u8]) {
