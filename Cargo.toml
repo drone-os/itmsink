@@ -1,6 +1,6 @@
 [package]
 name = "itmsink"
-version = "0.1.3"
+version = "0.1.4"
 authors = ["Valentine Valyaeff <valentine.valyaeff@gmail.com>"]
 edition = "2018"
 repository = "https://github.com/drone-os/itmsink"
@@ -25,7 +25,7 @@ ITM protocol parser.
 """
 
 [badges]
-maintenance = { status = "actively-developed" }
+maintenance = { status = "deprecated" }
 
 [dependencies]
 anyhow = "1"

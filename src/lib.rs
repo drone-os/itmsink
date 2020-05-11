@@ -1,3 +1,7 @@
+//! **DEPRECATED** Functionality of this crate was moved into [Drone CLI
+//! utility](https://crates.io/crates/drone). This repository is no longer
+//! maintained.
+//!
 //! ITM protocol parser.
 //!
 //! # Usage

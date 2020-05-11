@@ -1,7 +1,11 @@
 [![crates.io](https://img.shields.io/crates/v/itmsink.svg)](https://crates.io/crates/itmsink)
-![maintenance](https://img.shields.io/badge/maintenance-actively--developed-brightgreen.svg)
+![maintenance](https://img.shields.io/badge/maintenance-deprecated-red.svg)
 
 # itmsink
+
+**DEPRECATED** Functionality of this crate was moved into [Drone CLI
+utility](https://crates.io/crates/drone). This repository is no longer
+maintained.
 
 ITM protocol parser.
 
